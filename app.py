@@ -2,7 +2,7 @@ import streamlit as st
 from langchain.llms import OpenAI
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import Chroma  # or FAISS if you prefer
+from langchain.vectorstores import FAISS
 from langchain.chains import RetrievalQA
 
 # Set up page configuration
@@ -33,7 +33,7 @@ def generate_response(uploaded_file, openai_api_key, query_text):
         embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
 
         # Create vector store
-        db = Chroma.from_documents(texts, embeddings)
+        db = FAISS.from_documents(texts, embeddings)
 
         # Create retriever and QA chain
         retriever = db.as_retriever()
